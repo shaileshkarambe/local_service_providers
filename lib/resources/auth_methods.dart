@@ -21,7 +21,6 @@ class AuthMethods {
     }
   }
 
-//signUp User
   Future<String> emailSend({
     required String email,
     required String password,

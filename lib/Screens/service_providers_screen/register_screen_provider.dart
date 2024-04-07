@@ -26,11 +26,11 @@ class _RegisterScreenProvidersState extends State<RegisterScreenProviders> {
   String dropdownValue = 'Car Repair';
 
   String? userNameValidtaor(String? fieldContent) {
-    if (fieldContent!.isNotEmpty ||
-        RegExp(r'^[a-zA-Z0-9_]{3,16}$').hasMatch(fieldContent)) {
-      return null;
+    if (fieldContent!.isEmpty ||
+        !RegExp(r'^[A-Za-z]+(?: [A-Za-z]+)?$').hasMatch(fieldContent)) {
+      return 'enter valid name';
     }
-    return 'Enter Valid UserID';
+    return null;
   }
 
   String? emailValidtaor(String? fieldContent) {
@@ -50,19 +50,19 @@ class _RegisterScreenProvidersState extends State<RegisterScreenProviders> {
 
   String? passwordValidtaor(String? fieldContent) {
     if (fieldContent!.isNotEmpty ||
-        RegExp(r'^(?=.*[!@#\$%^&*()\-_=+\\|{}\[\]:;<>,.?\/])((?=.*[A-Z]))(?=.*[a-z])(?=.*\d).{6,}$')
+        RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$ ')
             .hasMatch(fieldContent)) {
       return null;
     }
-    return 'Enter Valid Password';
+    return 'Password should contain uppercase,lowercase & at least 8 characters)';
   }
 
   String? chargesValidtaor(String? fieldContent) {
-    if (fieldContent!.isNotEmpty ||
-        RegExp(r'^\d+(\.\d{1,2})?$').hasMatch(fieldContent)) {
-      return null;
+    if (fieldContent!.isEmpty ||
+        !RegExp(r'^\d+(\.\d+)?$').hasMatch(fieldContent)) {
+      return 'Enter Valid Charge';
     }
-    return 'Enter Valid Charge';
+    return null;
   }
 
   @override
@@ -143,7 +143,7 @@ class _RegisterScreenProvidersState extends State<RegisterScreenProviders> {
                           const SizedBox(height: 50),
                           TextFieldInput(
                             textEditingController: userNameControler,
-                            hintext: "  Enter your full name",
+                            hintext: "  Enter your first name & Last Name",
                             textInputType: TextInputType.name,
                             validate: userNameValidtaor,
                           ),
@@ -174,11 +174,12 @@ class _RegisterScreenProvidersState extends State<RegisterScreenProviders> {
                             controller: serviceChargesControler,
                             decoration: InputDecoration(
                                 border: inputBoreder,
-                                hintText: "  Enter service Charges",
+                                hintText: "Enter service Charges",
                                 focusedBorder: inputBoreder,
                                 filled: true,
                                 contentPadding: const EdgeInsets.all(0)),
                             keyboardType: TextInputType.number,
+                            validator: chargesValidtaor,
                           ),
                           const SizedBox(height: 30),
                           DropdownButtonFormField<String>(

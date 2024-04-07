@@ -18,6 +18,46 @@ class _WithdrawRequestFormState extends State<WithdrawRequestForm> {
   final TextEditingController _amountController = TextEditingController();
   String name = "";
 
+  String? accountHolderNameValidator(String? fieldContent) {
+    if (fieldContent!.isEmpty ||
+        !RegExp(r'^[A-Za-z]+(?: [A-Za-z]+)*$').hasMatch(fieldContent)) {
+      return 'Enter Valid Account Holder Name';
+    }
+    return null;
+  }
+
+  String? accountNumberValidator(String? fieldContent) {
+    if (fieldContent!.isEmpty ||
+        !RegExp(r'^[0-9]{9,18}$').hasMatch(fieldContent)) {
+      return 'Enter Valid Account Number';
+    }
+    return null;
+  }
+
+  String? bankNameValidator(String? fieldContent) {
+    if (fieldContent!.isEmpty ||
+        !RegExp(r'^[A-Za-z\s&(),.-]+$').hasMatch(fieldContent)) {
+      return 'Enter Valid Bank Name';
+    }
+    return null;
+  }
+
+  String? ifscCodeValidator(String? fieldContent) {
+    if (fieldContent!.isEmpty ||
+        !RegExp(r'^[A-Z]{4}0[A-Z0-9]{6}$').hasMatch(fieldContent)) {
+      return 'Enter Valid ISFC code';
+    }
+    return null;
+  }
+
+  String? amountValidator(String? fieldContent) {
+    if (fieldContent!.isEmpty ||
+        !RegExp(r'^\d+(\.\d+)?$').hasMatch(fieldContent)) {
+      return 'Enter Valid Amount';
+    }
+    return null;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -49,80 +89,50 @@ class _WithdrawRequestFormState extends State<WithdrawRequestForm> {
             children: <Widget>[
               const SizedBox(height: 20),
               TextFormField(
-                controller: _accountHolderController,
-                decoration: const InputDecoration(
-                  labelText: 'Account Holder Name',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter account holder name';
-                  }
-                  return null;
-                },
-              ),
+                  controller: _accountHolderController,
+                  decoration: const InputDecoration(
+                    labelText: 'Account Holder Name',
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: accountHolderNameValidator),
               const SizedBox(height: 20),
               TextFormField(
-                controller: _accountNumberController,
-                decoration: const InputDecoration(
-                  labelText: 'Account Number',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter account number';
-                  }
-                  return null;
-                },
-              ),
+                  controller: _accountNumberController,
+                  decoration: const InputDecoration(
+                    labelText: 'Account Number',
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: accountNumberValidator),
               const SizedBox(height: 20),
               TextFormField(
-                controller: _bankNameController,
-                decoration: const InputDecoration(
-                  labelText: 'Bank Name',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter bank name';
-                  }
-                  return null;
-                },
-              ),
+                  controller: _bankNameController,
+                  decoration: const InputDecoration(
+                    labelText: 'Bank Name',
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: bankNameValidator),
               const SizedBox(height: 20),
               TextFormField(
-                controller: _ifscCodeController,
-                decoration: const InputDecoration(
-                  labelText: 'IFSC Code',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter IFSC code';
-                  }
-                  return null;
-                },
-              ),
+                  controller: _ifscCodeController,
+                  decoration: const InputDecoration(
+                    labelText: 'IFSC Code',
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: ifscCodeValidator),
               const SizedBox(height: 20),
               TextFormField(
-                controller: _amountController,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  labelText: 'Amount',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter withdrawal amount';
-                  }
-                  return null;
-                },
-              ),
+                  controller: _amountController,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    labelText: 'Amount',
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: amountValidator),
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    // Save withdraw request data to Firestore
+                  final isValided = _formKey.currentState?.validate() ?? false;
+                  if (isValided) {
                     saveWithdrawRequest();
                   }
                 },

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:local_service_providers/Utils/message.dart';
+import 'package:local_service_providers/Utils/notification.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({Key? key, required this.name}) : super(key: key);
@@ -181,11 +182,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
     querySnapshot.docs.forEach((doc) {
       if (doc.exists) {
         String providerToken = doc['token'];
-
-        Message().sendMessageToDevice(
-            providerToken,
-            " Sorry !! Service request was Cancle",
-            "Your Scheduling Service request was cancel by $name.");
+        sendNotification(providerToken, "title", "body");
+        // Message().sendMessageToDevice(
+        //     providerToken,
+        //     " Sorry !! Service request was Cancle",
+        //     "Your Scheduling Service request was cancel by $name.");
       }
     });
   }
@@ -221,10 +222,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
       if (doc.exists) {
         String providerToken = doc['token'];
 
-        Message().sendMessageToDevice(
-            providerToken,
-            " Congratulations! You successfully completed your scheduling request",
-            "Congratulations! You successfully completed your scheduling request.  Your money reflects within 24 Hours in your Wallet ");
+        sendNotification(providerToken, "", "body");
+        // Message().sendMessageToDevice(
+        //     providerToken,
+        //     " Congratulations! You successfully completed your scheduling request",
+        //     "Congratulations! You successfully completed your scheduling request.  Your money reflects within 24 Hours in your Wallet ");
       }
     });
   }

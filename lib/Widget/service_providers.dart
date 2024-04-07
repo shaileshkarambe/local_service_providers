@@ -46,10 +46,10 @@ class ServiceProvidersCard extends StatelessWidget {
               Row(
                 children: [
                   const Icon(Icons.email),
-                  Text(provider.email),
+                  Flexible(child: Text(provider.email)),
                   const Spacer(),
-                  const Icon(Icons.work), Text(provider.dropdownValue)
-                  // Text('₹ ${providers.amount.toString()}')
+                  const Icon(Icons.work),
+                  Flexible(child: Text(provider.dropdownValue))
                 ],
               )
             ],

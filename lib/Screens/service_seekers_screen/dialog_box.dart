@@ -171,8 +171,10 @@ class _MyDialogState extends State<MyDialog> {
                 "Provider Name: $providerName",
               ),
               const Spacer(),
-              Text(
-                "Service Name: $categoryName",
+              Flexible(
+                child: Text(
+                  "Service Name: $categoryName",
+                ),
               ),
             ],
           ),

@@ -4,8 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:googleapis_auth/auth_io.dart';
 
 class Message {
-  String _accessToken = ''; // Remove the hardcoded access token
-
+  String _accessToken = '';
   final String _serviceAccountPath =
       'D:\\Project\\local_service_providers\\lib\\Screens\\local-service-providers-app-firebase-adminsdk-ibvz1-39e9448fdc.json';
   final List<String> _scopes = [

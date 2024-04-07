@@ -23,8 +23,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   String? userNameValidtaor(String? fieldContent) {
     if (fieldContent!.isEmpty ||
-        RegExp(r'^[A-Za-z][A-Za-z0-9_]{7,29}$').hasMatch(fieldContent)) {
-      return 'Enter Valid UserID';
+        !RegExp(r'^[A-Za-z]+(?: [A-Za-z]+)?$').hasMatch(fieldContent)) {
+      return 'enter valid name';
     }
     return null;
   }
@@ -46,9 +46,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   String? passwordValidtaor(String? fieldContent) {
     if (fieldContent!.isEmpty ||
-        RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
+        !RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$')
             .hasMatch(fieldContent)) {
-      return 'Enter Valid Password';
+      return 'Enter Valid Password(it should contain uppercase,lowercase & at least 8 characters)';
     }
     return null;
   }
@@ -124,7 +124,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           const SizedBox(height: 50),
                           TextFieldInput(
                             textEditingController: _userNameController,
-                            hintext: "  Enter your full name",
+                            hintext: " Enter your first name & Last Name",
                             textInputType: TextInputType.name,
                             validate: userNameValidtaor,
                           ),

@@ -85,5 +85,3 @@ class _TabsScreenState extends State<TabsScreen> {
     );
   }
 }
-
-class FCMService {}
